@@ -5,6 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.result = -1
         self.MainWindow = MainWindow
         self.MainWindow.setObjectName("MainWindow")
         self.MainWindow.resize(747, 562)
@@ -111,13 +112,18 @@ class Ui_MainWindow(object):
         self.gridLayout.setRowStretch(0, 30)
         self.horizontalLayout.addLayout(self.gridLayout)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(self.MainWindow)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi()
+
+        self.pushButton.clicked.connect(lambda: self.button_clicked(2))
+        self.pushButton_2.clicked.connect(lambda: self.button_clicked(3))
+        self.pushButton_3.clicked.connect(lambda: self.button_clicked(1))
         QtCore.QMetaObject.connectSlotsByName(self.MainWindow)
+
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
@@ -132,12 +138,15 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "Test"))
         self.label_7.setText(_translate("MainWindow", "Y Test"))
 
+    def button_clicked(self, x):
+        self.result = x
+        self.MainWindow.close()
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
+
+def main(app):
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    sys.exit(app.exec_())
+    app.exec_()
+    return ui.result
