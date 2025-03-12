@@ -38,11 +38,9 @@ def plot_data_distribution(X, Y, Y2):
     fig.tight_layout()
     plt.show()
 
-def plot_quality()
-
-all_data_files = glob.glob("database/*.xpt")
+all_data_files = glob.glob("Machine Learning/database/*.xpt")
 X, Y, Y2, Y3 = find_most_filled_dataframes(all_data_files)
-# plot_data_distribution(X, Y, Y2)
+plot_data_distribution(X, Y, Y2)
 quality_table = pd.DataFrame({"Data Name":X, 
                               "Total length":Y2, 
                               "Data excessed thresh":Y, 
