@@ -5,48 +5,37 @@ import pandas as pd
 import pyreadstat
 import matplotlib.pyplot as plt
 
-def find_most_filled_dataframes(db):
-    Y = []
-    X = []
-    Y2 = []
-    Y3 = []
+DATABASE = "Machine Learning/database/"
 
-    for i in db:
-        df, meta = pyreadstat.read_xport(i)
-        df_new = df.dropna(thresh=len(df.iloc[0, ])-15)
-        i = i.split("\\")[1]
-        X.append(i)
-        Y.append(len(df_new))
-        Y2.append(len(df))
-        Y3.append(len(df.iloc[1, ]))
-    return X, Y, Y2, Y3
+def get_directory_hierarchy():
+    all_years = glob.glob(f"{DATABASE}*")
+    DF_dictionary = {}
+    for year in all_years:
+        year_doc = year.split("\\")
+        all_XPT = glob.glob(year_doc[0]+"/"+year_doc[1]+"/Lab/*")
+        print(year_doc[1])
+        for xpt in all_XPT:
+            xpt_path, xpt_name = xpt.split("\\")
+            print(xpt_name, end=" ")
+            if year_doc[1] in DF_dictionary.keys():
+                DF_dictionary[year_doc[1]].append(xpt_name)
+            else:
+                DF_dictionary[year_doc[1]] = [xpt_name]
+        print("\n")
 
-def plot_data_distribution(X, Y, Y2):
-    fig, ax = plt.subplots(figsize=(15, 5))
+def get_DF_of_year(year, threshold=5):
+    result = {}
+    db = glob.glob(f"{DATABASE}{year}/Lab/*")
+    for xpt in db:
+        df, meta = pyreadstat.read_xport(xpt)
+        df_new = df.dropna(thresh=int(len(df.columns)-(threshold/100)*len(df.columns)))
+        df_new["year"] = year
+        xpt_name = xpt.split("\\")[1]
+        result[xpt_name] = df_new
+        print(f"{xpt_name} : {len(df_new)/len(df)} : with at most {threshold}% of NAN")
+    return result
 
-    width = 0.4  # Bar width
-    X_indices = np.arange(len(X))  # Numeric indices for x-axis
-    
-    ax.bar(X_indices - width/2, Y, width=width, label="Data with at most 15 NaN Column")
-    ax.bar(X_indices + width/2, Y2, width=width, label="Total amount of data")
-    
-    ax.set_xticks(X_indices)  # Set x-axis positions
-    ax.set_xticklabels(X, rotation=90)  # Apply labels
-    ax.set_title("Data including values with at most 15 NaN")
-    ax.legend()  # Show legend
-    
-    fig.tight_layout()
-    plt.show()
 
-all_data_files = glob.glob("Machine Learning/database/*.xpt")
-X, Y, Y2, Y3 = find_most_filled_dataframes(all_data_files)
-plot_data_distribution(X, Y, Y2)
-quality_table = pd.DataFrame({"Data Name":X, 
-                              "Total length":Y2, 
-                              "Data excessed thresh":Y, 
-                              "Feature number":Y3})
-quality_table["QualityNumber"] = (quality_table["Data excessed thresh"]/
-                                  quality_table["Total length"])*quality_table["Feature number"]
-max_quality = quality_table["QualityNumber"].max()
-quality_table["QualityNumber"] = quality_table["QualityNumber"]/max_quality
-print(quality_table)
+year_1999 = get_DF_of_year(year="1999-2000", threshold=0)
+print(year_1999)
+
