@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 
 DATABASE = "Machine Learning/database/"
 
+
+
 def get_directory_hierarchy():
     all_years = glob.glob(f"{DATABASE}*")
     DF_dictionary = {}
@@ -33,9 +35,12 @@ def get_DF_of_year(year, threshold=5):
         xpt_name = xpt.split("\\")[1]
         result[xpt_name] = df_new
         print(f"{xpt_name} : {len(df_new)/len(df)} : with at most {threshold}% of NAN")
+        df_new.head(5).to_csv(f"{DATABASE}{year}/Lab/{xpt_name}.csv")
     return result
 
 
-year_1999 = get_DF_of_year(year="1999-2000", threshold=0)
-print(year_1999)
+year_1999 = get_DF_of_year(year="1999-2000", threshold=2)
+year_2001 = get_DF_of_year(year="2001-2002", threshold=2)
+year_2003 = get_DF_of_year(year="2003-2004", threshold=2)
+
 
