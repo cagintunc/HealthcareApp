@@ -59,14 +59,26 @@ qproperty-alignment: 'AlignCenter';
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(84, 84, 85);
-height: 70%;
-border-radius: 15%;
-font: 20pt &quot;Book Antiqua&quot;;
-color: rgb(255, 255, 255);
-margin-top: 0%;
-margin-left: 50%;
-margin-right: 50%;</string>
+          <string notr="true">QPushButton {
+	background-color: rgb(84, 84, 85);
+	height: 70%;
+	border-radius: 15%;
+	font: 20pt &quot;Book Antiqua&quot;;
+	color: rgb(255, 255, 255);
+	margin-top: 0%;
+	margin-left: 50%;
+	margin-right: 50%;
+}
+QPushButton:hover {
+	background-color: rgb(0, 70, 71);
+	height: 70%;
+	border-radius: 15%;
+	font: 20pt &quot;Book Antiqua&quot;;
+	color: rgb(255, 255, 255);
+	margin-top: 0%;
+	margin-left: 50%;
+	margin-right: 50%;
+}</string>
          </property>
          <property name="text">
           <string>History</string>
@@ -76,14 +88,26 @@ margin-right: 50%;</string>
        <item>
         <widget class="QPushButton" name="pushButton">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(84, 84, 85);
-height: 70%;
-border-radius: 15%;
-font: 20pt &quot;Book Antiqua&quot;;
-color: rgb(255, 255, 255);
-margin-top: 0%;
-margin-left: 50%;
-margin-right: 50%;</string>
+          <string notr="true">QPushButton {
+	background-color: rgb(84, 84, 85);
+	height: 70%;
+	border-radius: 15%;
+	font: 20pt &quot;Book Antiqua&quot;;
+	color: rgb(255, 255, 255);
+	margin-top: 0%;
+	margin-left: 50%;
+	margin-right: 50%;
+}
+QPushButton:hover {
+	background-color: rgb(0, 70, 71);
+	height: 70%;
+	border-radius: 15%;
+	font: 20pt &quot;Book Antiqua&quot;;
+	color: rgb(255, 255, 255);
+	margin-top: 0%;
+	margin-left: 50%;
+	margin-right: 50%;
+}</string>
          </property>
          <property name="text">
           <string>New</string>
