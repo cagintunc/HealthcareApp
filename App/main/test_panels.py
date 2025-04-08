@@ -49,9 +49,11 @@ conn = sqlite3.connect("database/HealthcareDB.db")
 curr = conn.cursor()
 construct_the_database(curr)
 
+
 DOC_TYPES = {"Brain MRI Test":["image", 
                                "../../Machine Learning/models/brain_1.pth", 
-                               "brain_tests_table"], 
+                               "brain_tests_table",
+                               {0: "GLIOMA", 1: "MENINGIOMA", 2:"NO TUMOR", 3: "PITUITARY"}], 
              "Lung MRI Disease Test":["image", 
                                       "../../Machine Learning/models/lung_1.pth", 
                                       "lung_tests_table", 
@@ -67,7 +69,7 @@ DOC_TYPES = {"Brain MRI Test":["image",
 
 app = QtWidgets.QApplication(sys.argv)
 query_1 = mainmenu.main(app)
-
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 if query_1 == 1:
     new_user_info = newUser.main(app)
@@ -81,47 +83,49 @@ if query_1 == 1:
                 WHERE userName = '{}';""".format(user_name)
     result = curr.execute(query).fetchall()
     if len(result) == 0:
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
         insert_user = """INSERT INTO user_table (userName) 
                         VALUES ('{}')""".format(user_name)
         curr.execute(insert_user)
-        relative_path = f"database/{user_name}"
-        if not os.path.exists(relative_path):
-            os.mkdir(relative_path)
-        
-        test_last_path = path.split("/")[-1]
-        second_part = str(len(os.listdir(relative_path))) +"."+ test_last_path.split(".")[1]
-        test_path = relative_path + "/" + test_last_path.split(".")[0] + second_part
-        shutil.copyfile(path, test_path)
-        # result
-        model = torch.load(DOC_TYPES[test_type][1])
-        model.to(device)
-        # save the test to the database
-        data = None
-        if DOC_TYPES[test_type][0] == "image":
-            image = get_image(test_path)
-            tensor = torch.tensor(image).unsqueeze(0).unsqueeze(0).float()
-            tensor = tensor.to(device)
-            with torch.no_grad():
-                output = model(tensor)
-                probabilities = F.softmax(output, dim=1)
-                predicted_class = torch.argmax(output, dim=1).item()
-                confidence_level = probabilities[0][predicted_class].item()
-                query = """SELECT id FROM user_table 
-                        WHERE userName = '{}';""".format(user_name)
-                result = curr.execute(query).fetchall()
-                user_id = result[0] 
-                insert_test = """INSERT INTO {} 
-                (relativePath, result, confidence, date, user_id) 
-                VALUES ('{}', '{}', {}, '{}', {});""".format(DOC_TYPES[test_type][2], 
-                                      test_path, 
-                                      DOC_TYPES[test_type][3][predicted_class],
-                                      int(confidence_level*100),
-                                      date.today().strftime('%Y-%m-%d'),
-                                      user_id[0])
-                
-                curr.execute(insert_test)
+    
+    relative_path = f"database/{user_name}"
+    if not os.path.exists(relative_path):
+        os.mkdir(relative_path)
+    
+    test_last_path = path.split("/")[-1]
+    second_part = str(len(os.listdir(relative_path))) +"."+ test_last_path.split(".")[1]
+    test_path = relative_path + "/" + test_last_path.split(".")[0] + second_part
+    shutil.copyfile(path, test_path)
+    # result
+    model = torch.load(DOC_TYPES[test_type][1])
+    model.to(device)
+    # save the test to the database
+    data = None
+    if DOC_TYPES[test_type][0] == "image":
+        image = get_image(test_path)
+        tensor = torch.tensor(image).unsqueeze(0).unsqueeze(0).float()
+        print("here")
+        tensor = tensor.to(device)
+        with torch.no_grad():
+            output = model(tensor)
+            probabilities = F.softmax(output, dim=1)
+            predicted_class = torch.argmax(output, dim=1).item()
+            confidence_level = probabilities[0][predicted_class].item()
+            query = """SELECT id FROM user_table 
+                    WHERE userName = '{}';""".format(user_name)
+            result = curr.execute(query).fetchall()
+            user_id = result[0] 
+            insert_test = """INSERT INTO {} 
+            (relativePath, result, confidence, date, user_id) 
+            VALUES ('{}', '{}', {}, '{}', {});""".format(DOC_TYPES[test_type][2], 
+                                    test_path, 
+                                    DOC_TYPES[test_type][3][predicted_class],
+                                    int(confidence_level*100),
+                                    date.today().strftime('%Y-%m-%d'),
+                                    user_id[0])
+            print(insert_test)
+            
+            curr.execute(insert_test)
 
 
 conn.commit()
