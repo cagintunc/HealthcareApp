@@ -3,13 +3,21 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 import os
 
+DOC_TYPES = {
+    "csv":["Select a CSV File", "CSV Files (*.csv)"],
+    "image":["Select an MRI Image", "Image Files (*.png *.jpg *.jpeg *.bmp *.gif)"]
+}
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow, test_type, test_name):
+    def setupUi(self, MainWindow, 
+                test_type, 
+                test_name,
+                doc_type):
         self.MainWindow = MainWindow
         self.result = None
         self.test_type = test_type
         self.test_name = test_name
+        self.doc_type = doc_type
 
         self.MainWindow.setObjectName("MainWindow")
         self.MainWindow.resize(690, 640)
@@ -129,7 +137,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        self.MainWindow.setWindowTitle(_translate("MainWindow", "MRI Image"))
+        self.MainWindow.setWindowTitle(_translate("MainWindow", "Test Results Uploading"))
         self.label_2.setText(_translate("MainWindow", f"{self.test_type.title()} Data Entry\n"
                                         f"{self.test_name.title()}"))
         self.pushButton.setText(_translate("MainWindow", "Browse"))
@@ -139,24 +147,24 @@ class Ui_MainWindow(object):
         
     def browse_file(self):
         file_name, _ = QFileDialog.getOpenFileName(None, 
-                                                   "Select an MRI image", 
+                                                   f"{DOC_TYPES[self.doc_type][0]}", 
                                                    "", 
-                                                   "Image Files (*.png *.jpg *.jpeg *.bmp *.gif)")
+                                                   f"{DOC_TYPES[self.doc_type][1]}")
         
         if file_name: 
             self.lineEdit.setText(file_name)
         else:
             QMessageBox.information(None, 
                                    "No File Selected",
-                                   "Please select an image file.")
+                                   f"Please select an {self.doc_type} file.")
     
     def next(self):
         currentFilePath = self.lineEdit.text()
 
         if currentFilePath == "":
             QMessageBox.information(None, 
-                                    "Path of The Image Is NOT Given. CLICK BROWSE!",
-                                    "File path should be given (Path of the image which your MRI result resides).")
+                                    f"Path of The {self.doc_type} Is NOT Given. CLICK BROWSE!",
+                                    f"File path should be given (Path of the {self.doc_type} which your result resides).")
         
         elif not os.path.exists(currentFilePath):
             self.lineEdit.setText("")
@@ -173,10 +181,13 @@ class Ui_MainWindow(object):
             
 
 
-def main(app, test_type, test_name):
+def main(app, 
+         test_type, 
+         test_name, 
+         doc_type):
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
-    ui.setupUi(MainWindow, test_type, test_name)
+    ui.setupUi(MainWindow, test_type, test_name, doc_type)
     MainWindow.show()
     app.exec_()
     return ui.get_result()

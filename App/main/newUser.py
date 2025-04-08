@@ -50,17 +50,17 @@ class Ui_MainWindow(object):
                                         QComboBox::drop-down {
                                                 subcontrol-origin: padding;
                                                 subcontrol-position: top right;
-                                                width: 30px;
-                                                border-left-width: 1px;
+                                                width: 50px;
+                                                border-left-width: 2px;
                                                 border-left-color: darkgray;
                                                 border-left-style: solid;
                                                 border-top-right-radius: 10px;
                                                 border-bottom-right-radius: 10px;
                                         }
                                         QComboBox::down-arrow {
-                                                image: url(icons\\arrow_combobox.png);
-                                                width: 35px;
-                                                height: 35px;
+                                                image: url('icons/arrow_combobox.png');
+                                                width: 40px;
+                                                height: 40px;
                                         }
                                         """)
         self.comboBox.setObjectName("comboBox")
@@ -117,7 +117,7 @@ class Ui_MainWindow(object):
         self.MainWindow.setWindowTitle(_translate("MainWindow", "New User Addition Portal"))
         self.label.setText(_translate("MainWindow", "Name/Id:"))
         self.label_2.setText(_translate("MainWindow", "Select the Test:"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton.setText(_translate("MainWindow", "Next"))
 
     def get_results(self):
         return self.results
