@@ -5,23 +5,24 @@ import newUser
 import testClass
 import sqlite3
 import os
-
+import shutil
+import torch
+import cv2
+import torch.nn.functional as F
 
 
 def construct_the_database(curr):
     user_table = """CREATE TABLE IF NOT EXISTS user_table (
-        id INT NOT NULL,
-        userName VARCHAR(200) NOT NULL,
-        PRIMARY KEY(id)
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        userName VARCHAR(200) NOT NULL
     );"""
 
     test_table_temp = """CREATE TABLE IF NOT EXISTS {} (
-        test_id INT NOT NULL,
+        test_id INTEGER PRIMARY KEY AUTOINCREMENT,
         relativePath VARCHAR(1000) NOT NULL,
         result VARCHAR(255),
         date DATE NOT NULL,
         user_id INT NOT NULL,
-        PRIMARY KEY(test_id),
         FOREIGN KEY (user_id) REFERENCES user_table(id)
     );"""
 
@@ -30,16 +31,26 @@ def construct_the_database(curr):
     curr.execute(test_table_temp.format("brain_tests_table"))
     curr.execute(test_table_temp.format("diabetes_tests_table"))
 
+def get_image(image_path):
+    image = cv2.imread(image_path)
+    image = cv2.resize(image, (64, 64))
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    image = image / 255.0
+    return image
 
-conn = sqlite3.connect("HealthcareDB.db")
+
+if not os.path.exists("database"):
+    os.mkdir("database")
+
+conn = sqlite3.connect("database/HealthcareDB.db")
 curr = conn.cursor()
 construct_the_database(curr)
 
-DOC_TYPES = {"Brain MRI Test":"image", 
-             "Lung MRI Disease Test":"image", 
-             "Alzeihmer Test":"image",
-             "Diabetes": "csv",
-             "Gene Test": "csv"}
+DOC_TYPES = {"Brain MRI Test":["image", "../../Machine Learning/models/brain_1.pth"], 
+             "Lung MRI Disease Test":["image", "../../Machine Learning/models/lung_1.pth"], 
+             "Alzeihmer Test":["image", None],
+             "Diabetes": ["csv", None],
+             "Gene Test": ["csv", None]}
 
 
 app = QtWidgets.QApplication(sys.argv)
@@ -53,14 +64,43 @@ if query_1 == 1:
     path = testClass.main(app, 
                           test_type, 
                           user_name, 
-                          DOC_TYPES[test_type])
+                          DOC_TYPES[test_type][0])
     query = """SELECT id FROM user_table 
                 WHERE userName = '{user_name}';"""
     result = curr.execute(query).fetchall()
     if len(result) == 0:
-        insert_user = """INSERT TABLE user_table userName 
-                        VALUES ({})""".format(user_name)
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+        insert_user = """INSERT INTO user_table (userName) 
+                        VALUES ('{}')""".format(user_name)
         curr.execute(insert_user)
+        relative_path = f"database/{user_name}"
+        if not os.path.exists(relative_path):
+            os.mkdir(relative_path)
+        
+        test_last_path = path.split("/")[-1]
+        second_part = str(len(os.listdir(relative_path))) +"."+ test_last_path.split(".")[1]
+        test_path = relative_path + "/" + test_last_path.split(".")[0] + second_part
+        shutil.copyfile(path, test_path)
+        # result
+        model = torch.load(DOC_TYPES[test_type][1])
+        model.to(device)
+        # save the test to the database
+        data = None
+        if DOC_TYPES[test_type][0] == "image":
+            image = get_image(test_path)
+            tensor = torch.tensor(image).unsqueeze(0).unsqueeze(0).float()
+            tensor = tensor.to(device)
+            with torch.no_grad():
+                output = model(tensor)
+                probabilities = F.softmax(output, dim=1)
+                predicted_class = torch.argmax(output, dim=1).item()
+                confidence_level = probabilities[0][predicted_class].item()
+                
+
+
+
+        
     
 
 conn.commit()
