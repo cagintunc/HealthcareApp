@@ -3,6 +3,7 @@ import sys
 import mainmenu
 import newUser
 import testClass
+import testResultGUI
 import sqlite3
 import os
 import shutil
@@ -104,7 +105,6 @@ if query_1 == 1:
     if DOC_TYPES[test_type][0] == "image":
         image = get_image(test_path)
         tensor = torch.tensor(image).unsqueeze(0).unsqueeze(0).float()
-        print("here")
         tensor = tensor.to(device)
         with torch.no_grad():
             output = model(tensor)
@@ -115,22 +115,27 @@ if query_1 == 1:
                     WHERE userName = '{}';""".format(user_name)
             result = curr.execute(query).fetchall()
             user_id = result[0] 
+            today_date = date.today().strftime('%Y-%m-%d')
+            final_result = DOC_TYPES[test_type][3][predicted_class]
             insert_test = """INSERT INTO {} 
             (relativePath, result, confidence, date, user_id) 
             VALUES ('{}', '{}', {}, '{}', {});""".format(DOC_TYPES[test_type][2], 
                                     test_path, 
-                                    DOC_TYPES[test_type][3][predicted_class],
+                                    final_result,
                                     int(confidence_level*100),
-                                    date.today().strftime('%Y-%m-%d'),
+                                    today_date,
                                     user_id[0])
-            print(insert_test)
             
             curr.execute(insert_test)
+            
+            end_point_for_results = [test_type, today_date, final_result]
+            testResultGUI.main(app, user_name, end_point_for_results)
+            
 
 
 conn.commit()
 conn.close()
-    
+sys.exit(0)    
     
     
 
