@@ -66,7 +66,11 @@ class Ui_MainWindow(object):
         self.comboBox.setObjectName("comboBox")
 
 
-        self.comboBox.addItems(["Brain MRI Test", "Lung MRI Disease Test", "Alzeihmer Test"])
+        self.comboBox.addItems(["Brain MRI Test", 
+                                "Lung MRI Disease Test", 
+                                "Alzeihmer Test", 
+                                "Diabetes",
+                                "Gene Test"])
 
 
         self.verticalLayout.addWidget(self.comboBox)
