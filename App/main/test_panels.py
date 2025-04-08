@@ -9,6 +9,7 @@ import shutil
 import torch
 import cv2
 import torch.nn.functional as F
+from datetime import date
 
 
 def construct_the_database(curr):
@@ -21,6 +22,7 @@ def construct_the_database(curr):
         test_id INTEGER PRIMARY KEY AUTOINCREMENT,
         relativePath VARCHAR(1000) NOT NULL,
         result VARCHAR(255),
+        confidence INT NOT NULL,
         date DATE NOT NULL,
         user_id INT NOT NULL,
         FOREIGN KEY (user_id) REFERENCES user_table(id)
@@ -30,6 +32,7 @@ def construct_the_database(curr):
     curr.execute(test_table_temp.format("alzheimer_test_table"))
     curr.execute(test_table_temp.format("brain_tests_table"))
     curr.execute(test_table_temp.format("diabetes_tests_table"))
+    curr.execute(test_table_temp.format("lung_tests_table"))
 
 def get_image(image_path):
     image = cv2.imread(image_path)
@@ -46,12 +49,21 @@ conn = sqlite3.connect("database/HealthcareDB.db")
 curr = conn.cursor()
 construct_the_database(curr)
 
-DOC_TYPES = {"Brain MRI Test":["image", "../../Machine Learning/models/brain_1.pth"], 
-             "Lung MRI Disease Test":["image", "../../Machine Learning/models/lung_1.pth"], 
-             "Alzeihmer Test":["image", None],
-             "Diabetes": ["csv", None],
-             "Gene Test": ["csv", None]}
-
+DOC_TYPES = {"Brain MRI Test":["image", 
+                               "../../Machine Learning/models/brain_1.pth", 
+                               "brain_tests_table"], 
+             "Lung MRI Disease Test":["image", 
+                                      "../../Machine Learning/models/lung_1.pth", 
+                                      "lung_tests_table", 
+                                      {0: "NORMAL", 1: "COVID19", 2: "PNEUMONIA"}], 
+             "Alzeihmer Test":["image", 
+                               None, 
+                               "alzheimer_test_table"],
+             "Diabetes": ["csv", 
+                          None, 
+                          "diabetes_tests_table"],
+             "Gene Test": ["csv", 
+                           None]}
 
 app = QtWidgets.QApplication(sys.argv)
 query_1 = mainmenu.main(app)
@@ -66,7 +78,7 @@ if query_1 == 1:
                           user_name, 
                           DOC_TYPES[test_type][0])
     query = """SELECT id FROM user_table 
-                WHERE userName = '{user_name}';"""
+                WHERE userName = '{}';""".format(user_name)
     result = curr.execute(query).fetchall()
     if len(result) == 0:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -96,12 +108,21 @@ if query_1 == 1:
                 probabilities = F.softmax(output, dim=1)
                 predicted_class = torch.argmax(output, dim=1).item()
                 confidence_level = probabilities[0][predicted_class].item()
+                query = """SELECT id FROM user_table 
+                        WHERE userName = '{}';""".format(user_name)
+                result = curr.execute(query).fetchall()
+                user_id = result[0] 
+                insert_test = """INSERT INTO {} 
+                (relativePath, result, confidence, date, user_id) 
+                VALUES ('{}', '{}', {}, '{}', {});""".format(DOC_TYPES[test_type][2], 
+                                      test_path, 
+                                      DOC_TYPES[test_type][3][predicted_class],
+                                      int(confidence_level*100),
+                                      date.today().strftime('%Y-%m-%d'),
+                                      user_id[0])
                 
+                curr.execute(insert_test)
 
-
-
-        
-    
 
 conn.commit()
 conn.close()
