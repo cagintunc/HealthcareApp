@@ -58,9 +58,9 @@ class Ui_MainWindow(object):
                                                 border-bottom-right-radius: 10px;
                                         }
                                         QComboBox::down-arrow {
-                                                image: url(icons/arrow_combobox.png);
-                                                width: 15px;
-                                                height: 15px;
+                                                image: url(icons\\arrow_combobox.png);
+                                                width: 35px;
+                                                height: 35px;
                                         }
                                         """)
         self.comboBox.setObjectName("comboBox")
