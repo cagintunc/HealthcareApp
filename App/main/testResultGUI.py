@@ -7,10 +7,11 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow, username, results):
         self.username = username
         self.results = results
+        self.MainWindow = MainWindow
 
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(675, 809)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.MainWindow.setObjectName("MainWindow")
+        self.MainWindow.resize(675, 809)
+        self.centralwidget = QtWidgets.QWidget(self.MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -47,6 +48,8 @@ class Ui_MainWindow(object):
                                         "    margin-left: 20%;\n"
                                         "    margin-right: 20%;\n"
                                         "    font: 10pt \"Book Antiqua\";\n"
+                                        "    align-text: left;\n"
+                                        "    qproperty-alignment: \'AlignLeft\';\n"
                                         "    min-height: 250px;"
                                         "}")
         self.label_2.setObjectName("label_2")
@@ -89,23 +92,28 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addLayout(self.verticalLayout_3)
         self.verticalLayout.addWidget(self.frame)
         self.verticalLayout_2.addLayout(self.verticalLayout)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(self.MainWindow)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.pushButton.clicked.connect(self.end)
 
-    def retranslateUi(self, MainWindow):
+        self.retranslateUi()
+        QtCore.QMetaObject.connectSlotsByName(self.MainWindow)
+    
+    def end(self):
+        self.MainWindow.close()
+
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Test Result Page"))
+        self.MainWindow.setWindowTitle(_translate("MainWindow", "Test Result Page"))
         self.label.setText(_translate("MainWindow", f"Test Results for {self.username.title()}"))
-        self.label_2.setText(_translate("MainWindow", f"""Test Date: {self.results[1]}\n "
-                                        The patient who has a user name of '{self.username}' sent a {self.results[0]} tests.\n
-                                        According to the system, there is a chance for this patient to be '{self.results[2]}'.\n
-                                        Notice: Even though the models in these program were trained on real world data with a high accuracy,\n 
-                                        the program can only give an estimation. Therefore, it's only purpose is to give a prediction, NOT a result!"""))
+        self.label_2.setText(_translate("MainWindow", f"""Test Date: {self.results[1]}:\n
+The patient who has a user name of '{self.username}' sent a {self.results[0]} tests.\n
+According to the system, there is a chance for this patient to be '{self.results[2]}'.\n
+Notice: Even though the models in these program were trained on real world data with a high accuracy,\n 
+the program can only give an estimation. Therefore, it's only purpose is to give a prediction, NOT a result!"""))
         self.pushButton.setText(_translate("MainWindow", "Finish"))
         self.label_3.setText(_translate("MainWindow", "\"Precision in practice.\"\n"
                                         "— Atul Gawande —"))

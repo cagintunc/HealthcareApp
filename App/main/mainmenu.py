@@ -1,6 +1,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5.QtCore import Qt
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -40,50 +40,50 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
         self.pushButton_2.setSizePolicy(sizePolicy)
         self.pushButton_2.setStyleSheet("QPushButton {\n"
+                                        "    max-width: 400px !important;\n"
+                                        "    min-width: 300px !important;\n"
                                         "    background-color: rgb(84, 84, 85);\n"
                                         "    height: 70%;\n"
                                         "    border-radius: 15%;\n"
                                         "    font: 20pt \"Book Antiqua\";\n"
                                         "    color: rgb(255, 255, 255);\n"
                                         "    margin-top: 0%;\n"
-                                        "    margin-left: 50%;\n"
-                                        "    margin-right: 50%;\n"
                                         "}\n"
                                         "QPushButton:hover {\n"
+                                        "    max-width: 400px !important;\n"
+                                        "    min-width: 300px !important;\n"
                                         "    background-color: rgb(0, 70, 71);\n"
                                         "    height: 70%;\n"
                                         "    border-radius: 15%;\n"
                                         "    font: 20pt \"Book Antiqua\";\n"
                                         "    color: rgb(255, 255, 255);\n"
                                         "    margin-top: 0%;\n"
-                                        "    margin-left: 50%;\n"
-                                        "    margin-right: 50%;\n"
                                         "}")
         self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout_3.addWidget(self.pushButton_2)
+        self.verticalLayout_3.addWidget(self.pushButton_2, alignment=Qt.AlignHCenter)
         self.pushButton = QtWidgets.QPushButton(self.frame)
         self.pushButton.setStyleSheet("QPushButton {\n"
+                                        "    max-width: 400px !important;\n"
+                                        "    min-width: 300px !important;\n"
                                         "    background-color: rgb(84, 84, 85);\n"
                                         "    height: 70%;\n"
                                         "    border-radius: 15%;\n"
                                         "    font: 20pt \"Book Antiqua\";\n"
                                         "    color: rgb(255, 255, 255);\n"
                                         "    margin-top: 0%;\n"
-                                        "    margin-left: 50%;\n"
-                                        "    margin-right: 50%;\n"
                                         "}\n"
                                         "QPushButton:hover {\n"
+                                        "    max-width: 400px !important;\n"
+                                        "    min-width: 300px !important;\n"
                                         "    background-color: rgb(0, 70, 71);\n"
                                         "    height: 70%;\n"
                                         "    border-radius: 15%;\n"
                                         "    font: 20pt \"Book Antiqua\";\n"
                                         "    color: rgb(255, 255, 255);\n"
                                         "    margin-top: 0%;\n"
-                                        "    margin-left: 50%;\n"
-                                        "    margin-right: 50%;\n"
                                         "}")
         self.pushButton.setObjectName("pushButton")
-        self.verticalLayout_3.addWidget(self.pushButton)
+        self.verticalLayout_3.addWidget(self.pushButton, alignment=Qt.AlignHCenter)
         self.verticalLayout.addWidget(self.frame)
         self.MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(self.MainWindow)
