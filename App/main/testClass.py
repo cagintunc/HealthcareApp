@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
                                 "QLabel {\n"
                                 "text-align: center;\n"
                                 "qproperty-alignment: \'AlignCenter\';\n"
-                                "font: 20pt \"Book Antiqua\";\n"
+                                "font: 15pt \"Book Antiqua\";\n"
                                 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -54,7 +54,7 @@ class Ui_MainWindow(object):
         self.lineEdit.setStyleSheet("background-color: rgb(233,233,233);\n"
                                         "min-height: 60%;\n"
                                         "border-radius: 20%;\n"
-                                        "font: 20pt \"Book Antiqua\";")
+                                        "font: 15pt \"Book Antiqua\";")
         self.lineEdit.setObjectName("lineEdit")
         self.verticalLayout_3.addWidget(self.lineEdit)
 

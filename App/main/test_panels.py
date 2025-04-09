@@ -4,6 +4,7 @@ import mainmenu
 import newUser
 import testClass
 import testResultGUI
+import searchUser
 import sqlite3
 import os
 import shutil
@@ -11,6 +12,7 @@ import torch
 import cv2
 import torch.nn.functional as F
 from datetime import date
+
 
 
 def construct_the_database(curr):
@@ -130,6 +132,9 @@ if query_1 == 1:
             
             end_point_for_results = [test_type, today_date, final_result]
             testResultGUI.main(app, user_name, end_point_for_results)
+
+elif query_1 == 0:
+    searchUser.main(app, curr)
             
 
 

@@ -24,15 +24,15 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setStyleSheet("\n"
-                                "font: 20pt \"Book Antiqua\";")
+                                "font: 15pt \"Book Antiqua\";")
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         self.lineEdit = QtWidgets.QLineEdit(self.frame)
         self.lineEdit.setStyleSheet("background-color: rgb(233,233,233);\n"
                                         "min-height: 60%;\n"
                                         "border-radius: 20%;\n"
-                                        "font: 20pt \"Book Antiqua\";\n"
-                                        "")
+                                        "font: 15pt \"Book Antiqua\";\n"
+        )
         self.lineEdit.setObjectName("lineEdit")
         self.verticalLayout.addWidget(self.lineEdit)
         self.label_2 = QtWidgets.QLabel(self.frame)
@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
                                         QComboBox {
                                                 background-color: rgb(233, 233, 233);
                                                 border-radius: 10px;
-                                                font: 20pt "Book Antiqua";
+                                                font: 15pt "Book Antiqua";
                                                 padding: 10px;
                                         }
                                         QComboBox::drop-down {
