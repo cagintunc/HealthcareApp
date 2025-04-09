@@ -4,10 +4,12 @@ from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import Qt
 import sqlite3
 import os
+import testResultGUI
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, curr):
+        self.clicked_data = None
         self.MainWindow = MainWindow
         self.is_searched = False
         self.curr = curr
@@ -154,7 +156,14 @@ class Ui_MainWindow(object):
             "background-color: rgb(220, 220, 220);}" \
             "QWidget:hover {" \
             "background-color: rgb(240, 240, 240);}")
+            
+            def make_row_clickable(widget, username, row):
+                def handler(event):
+                        self.clicked_data = (username, row)
+                        self.MainWindow.close()  # This will end the app.exec_() loop
+                widget.mousePressEvent = handler
 
+            make_row_clickable(row_widget, userquery, row)
             self.scroll_layout.addWidget(row_widget)
 
     def retranslateUi(self):
@@ -171,3 +180,5 @@ def main(app, curr):
     ui.setupUi(MainWindow, curr)
     MainWindow.show()
     app.exec_()
+    return ui.clicked_data
+    

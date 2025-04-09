@@ -23,7 +23,7 @@ class Ui_MainWindow(object):
                                 "    margin: 20%;\n"
                                 "}\n"
                                 "QLabel {\n"
-                                "    align-text: center;\n"
+                                "    text-align: center;\n"
                                 "    qproperty-alignment: \'AlignCenter\';\n"
                                 "    font: 18pt \"Book Antiqua\";\n"
                                 "}")
@@ -48,7 +48,7 @@ class Ui_MainWindow(object):
                                         "    margin-left: 20%;\n"
                                         "    margin-right: 20%;\n"
                                         "    font: 10pt \"Book Antiqua\";\n"
-                                        "    align-text: left;\n"
+                                        "    text-align: left;\n"
                                         "    qproperty-alignment: \'AlignLeft\';\n"
                                         "    min-height: 250px;"
                                         "}")
@@ -82,7 +82,7 @@ class Ui_MainWindow(object):
         self.label_3.setStyleSheet("#label_3 {\n"
                                         "    font: 30pt \"Kunstler Script\";\n"
                                         "   color: rgb(255, 255, 255);\n"
-                                        "    background-color: rgb(84, 84, 85, 90);\n"
+                                        "    background-color: rgba(84, 84, 85, 0.9);\n"
                                         "    margin: 0% !important;\n"
                                         "\n"
                                         "}\n"
@@ -125,3 +125,5 @@ def main(app, username, results):
     ui.setupUi(MainWindow, username, results)
     MainWindow.show()
     app.exec_()
+    
+    

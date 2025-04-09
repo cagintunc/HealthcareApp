@@ -134,9 +134,9 @@ if query_1 == 1:
             testResultGUI.main(app, user_name, end_point_for_results)
 
 elif query_1 == 0:
-    searchUser.main(app, curr)
+    returned_data = searchUser.main(app, curr)
+    testResultGUI.main(app, returned_data[0], returned_data[1])
             
-
 
 conn.commit()
 conn.close()
