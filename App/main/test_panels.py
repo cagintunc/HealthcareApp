@@ -14,7 +14,6 @@ import torch.nn.functional as F
 from datetime import date
 
 
-
 def construct_the_database(curr):
     user_table = """CREATE TABLE IF NOT EXISTS user_table (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,14 +55,23 @@ construct_the_database(curr)
 DOC_TYPES = {"Brain MRI Test":["image", 
                                "../../Machine Learning/models/brain_1.pth", 
                                "brain_tests_table",
-                               {0: "GLIOMA", 1: "MENINGIOMA", 2:"NO TUMOR", 3: "PITUITARY"}], 
+                               {0: "GLIOMA", 
+                                1: "MENINGIOMA", 
+                                2:"NO TUMOR", 
+                                3: "PITUITARY"}], 
              "Lung MRI Disease Test":["image", 
                                       "../../Machine Learning/models/lung_1.pth", 
                                       "lung_tests_table", 
-                                      {0: "NORMAL", 1: "COVID19", 2: "PNEUMONIA"}], 
+                                      {0: "NORMAL",
+                                       1: "COVID19", 
+                                       2: "PNEUMONIA"}], 
              "Alzeihmer Test":["image", 
-                               None, 
-                               "alzheimer_test_table"],
+                               "../../Machine Learning/models/alzh_1.pth", 
+                               "alzheimer_test_table",
+                               {"glioma":0, 
+                                "meningioma":1, 
+                                "notumor":2, 
+                                "pituitary": 3}],
              "Diabetes": ["csv", 
                           None, 
                           "diabetes_tests_table"],
