@@ -124,9 +124,11 @@ class Ui_MainWindow(object):
         user_id = int(results[0][0])
         brain_table = f"SELECT * FROM brain_tests_table WHERE user_id = {user_id};"
         lung_table = f"SELECT * FROM lung_tests_table WHERE user_id = {user_id};"
+        alzh_table = f"SELECT * FROM alzheimer_test_table WHERE user_id = {user_id};"
 
         content = self.curr.execute(brain_table).fetchall()
         content += self.curr.execute(lung_table).fetchall()
+        content += self.curr.execute(alzh_table).fetchall()
         if len(content) == 1:
             self.scroll_area.setFixedHeight(100)
         elif len(content) == 2:
