@@ -153,11 +153,22 @@ class Ui_MainWindow(object):
             row_layout.addWidget(label_3)
 
             row_widget = QtWidgets.QWidget()
+            row_widget.setObjectName("row_layout")
             row_widget.setLayout(row_layout)
-            row_widget.setStyleSheet("QWidget {" \
-            "background-color: rgb(220, 220, 220);}" \
-            "QWidget:hover {" \
-            "background-color: rgb(240, 240, 240);}")
+            row_widget.setStyleSheet("""
+        QWidget#row_layout {
+            background-color: rgb(220, 220, 220);  /* Row's default background */
+        }
+        QWidget#row_layout:hover {
+            background-color: rgb(240, 240, 240);  /* Hover effect for the entire row */
+        }
+        QWidget#row_layout QLabel {
+            background-color: rgb(220, 220, 220);  /* Same background for all QLabels */
+        }
+        QWidget#row_layout:hover QLabel {
+            background-color: rgb(240, 240, 240);  /* Hover effect for all QLabels */
+        }
+    """)
             
             def make_row_clickable(widget, username, row):
                 def handler(event):
