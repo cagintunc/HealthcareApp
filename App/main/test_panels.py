@@ -5,6 +5,7 @@ import newUser
 import testClass
 import testResultGUI
 import searchUser
+import newUserInfo
 import sqlite3
 import os
 import shutil
@@ -17,7 +18,10 @@ from datetime import date
 def construct_the_database(curr):
     user_table = """CREATE TABLE IF NOT EXISTS user_table (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        userName VARCHAR(200) NOT NULL
+        userName VARCHAR(200) NOT NULL,
+        age INTEGER NOT NULL,
+        gender VARCHAR(100) NOT NULL,
+        employment VARCHAR(200) NOT NULL
     );"""
 
     test_table_temp = """CREATE TABLE IF NOT EXISTS {} (
@@ -86,19 +90,23 @@ if query_1 == 1:
     new_user_info = newUser.main(app)
     user_name = new_user_info[0]
     test_type = new_user_info[1]
-    path = testClass.main(app, 
-                          test_type, 
-                          user_name, 
-                          DOC_TYPES[test_type][0])
     query = """SELECT id FROM user_table 
                 WHERE userName = '{}';""".format(user_name)
     result = curr.execute(query).fetchall()
     if len(result) == 0:
-
-        insert_user = """INSERT INTO user_table (userName) 
-                        VALUES ('{}')""".format(user_name)
+        result = newUserInfo.main(app, user_name)
+        insert_user = """INSERT INTO user_table (userName, age, gender, employment) 
+                        VALUES ('{}', {}, '{}', '{}')""".format(user_name, 
+                                                                result[1],
+                                                                result[2],
+                                                                result[3])
         curr.execute(insert_user)
     
+    path = testClass.main(app, 
+                          test_type, 
+                          user_name, 
+                          DOC_TYPES[test_type][0])
+
     relative_path = f"database/{user_name}"
     if not os.path.exists(relative_path):
         os.mkdir(relative_path)

@@ -108,10 +108,14 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        print(self.results)
+        date_pos = -1
+        if len(self.results) < 5:
+            date_pos = 1
+        else:
+            date_pos = 4
         self.MainWindow.setWindowTitle(_translate("MainWindow", "Test Result Page"))
         self.label.setText(_translate("MainWindow", f"Test Results for {self.username.title()}"))
-        self.label_2.setText(_translate("MainWindow", f"""  Test Date: {self.results[1]}\n
+        self.label_2.setText(_translate("MainWindow", f"""  Test Date: {self.results[date_pos]}\n
         The patient who has a user name of '{self.username}' sent a {self.results[0]} tests.\n
         According to the system, there is a chance for this patient to be '{self.results[2]}'.\n
         Notice: Even though the models in these program were trained on real world data with a high accuracy,\n 
