@@ -27,11 +27,12 @@ To construct the database effectively afterwards, a database schema has been dra
     <img src="App/Pictures For Report/databaseDiagram.drawio.png" alt="Figure 1" width="400">
 </p>
  
-**Figure 6**: Database schema of the user records
+**Figure 1**: Database schema of the user records
 
 Arrows, together with a star at one end, indicate that there is a one-to-many relationship between each test and user. For example, while each user can have multiple brain tests, one brain test can only belong to one user. 
 
 ### <a name='Architecture'></a>Architecture
+
 
 
 
