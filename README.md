@@ -77,7 +77,7 @@ towards the classes with more training data. <br>
     <img src="App/Pictures For Report/whole_class_dist.jpg" alt="Figure 6" width="700">
 </p>
 <p align="center">
-    <b>Figure 3:</b> Class frequencies of every CNN model. It shows a high variation, which can cause 
+    <b>Figure 4:</b> Class frequencies of every CNN model. It shows a high variation, which can cause 
 biased predictions
 </p>
 
@@ -90,7 +90,7 @@ By doing that, we reduced the time spent on preprocessing by **83%**. <br>
     <img src="Machine Learning/figures/thread_usage_images.png" alt="Figure 7" width="400">
 </p>
 <p align="center">
-    <b>Figure 4:</b> The amount of time spent in preprocessing images with and without threads. 
+    <b>Figure 5:</b> The amount of time spent in preprocessing images with and without threads. 
 </p>
 
 
@@ -103,7 +103,7 @@ By doing that, we reduced the time spent on preprocessing by **83%**. <br>
     <img src="App/Pictures For Report/brain_predictor.drawio.png" alt="Figure 3" width="300">
 </p>
 <p align="center">
-    <b>Figure 5:</b> The model architecture for the brain cancer prediction
+    <b>Figure 6:</b> The model architecture for the brain cancer prediction
 </p>
 
 #### 2.<a name='alzheimer'></a>Alzheimer Prediction
@@ -112,7 +112,7 @@ By doing that, we reduced the time spent on preprocessing by **83%**. <br>
     <img src="App/Pictures For Report/alzh_predictor.drawio.png" alt="Figure 4" width="500">
 </p>
 <p align="center">
-    <b>Figure 6:</b> The architecture of the model for the Alzheimer prediction
+    <b>Figure 7:</b> The architecture of the model for the Alzheimer prediction
 </p>
 
 The model architecture used in the Alzheimer's prediction model has some differences. It is 
@@ -125,7 +125,7 @@ complex so that it can learn the trends instead of memorizing the data. <br>
     <img src="App/Pictures For Report/lung_predictor.drawio.png" alt="Figure 5" width="300">
 </p>
 <p align="center">
-    <b>Figure 7:</b> The model architecture for the lung disease prediction
+    <b>Figure 8:</b> The model architecture for the lung disease prediction
 </p>
 
 The model architecture for lung disease prediction is almost the same architecture used in the 
@@ -144,7 +144,7 @@ results of the three image-based models are as follows:
     <img src="App/Pictures For Report/cnn_accuracies.jpg" alt="Figure 8" width="700">
 </p>
 <p align="center">
-    <b>Figure 8:</b> The CNN model's test results
+    <b>Figure 9:</b> The CNN model's test results
 </p>
 
 #### 5.<a name='gene'></a>Gene Test
@@ -167,7 +167,7 @@ pathway, and type 2 diabetes mellitus pathways, further supporting biological re
     <img src="App/Pictures For Report/target_genes.jpg" alt="Figure 9" width="400">
 </p>
 <p align="center">
-    <b>Figure 9:</b> The percentage of each target gene
+    <b>Figure 10:</b> The percentage of each target gene
 </p>
 
 Some individuals with low-risk clinical profiles were predicted as high-risk due to 
@@ -180,7 +180,7 @@ reference data, which may affect risk calibration. <br>
     <img src="App/Pictures For Report/auc_target.jpg" alt="Figure 10" width="400">
 </p>
 <p align="center">
-    <b>Figure 10:</b> The AUC curve of each target gene 
+    <b>Figure 11:</b> The AUC curve of each target gene 
 </p>
 
 #### 6.<a name='pheno'></a>Phenotype Test
@@ -189,7 +189,7 @@ reference data, which may affect risk calibration. <br>
     <img src="App/Pictures For Report/pheno_roc.jpg" alt="Figure 11" width="400">
 </p>
 <p align="center">
-    <b>Figure 11:</b>  ROC curves comparing classification performance across different machine learning 
+    <b>Figure 12:</b>  ROC curves comparing classification performance across different machine learning 
 models 
 </p>
 
@@ -217,7 +217,7 @@ following user interface:
     <img src="App/Pictures For Report/figma_3.jpg" alt="Figure 12" width="400">
 </p>
 <p align="center">
-    <b>Figure 12:</b> The first Figma prototype of the desktop application
+    <b>Figure 13:</b> The first Figma prototype of the desktop application
 models 
 </p>
 
