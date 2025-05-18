@@ -32,7 +32,7 @@ To construct the database effectively afterwards, a database schema has been dra
 Arrows, together with a star at one end, indicate that there is a one-to-many relationship between each test and user. For example, while each user can have multiple brain tests, one brain test can only belong to one user. 
 
 <p align="center">
-    <img src="App/Pictures For Report/Features.png" alt="Figure 2" width="1000">
+    <img src="App/Pictures For Report/Features.png" alt="Figure 2" width="700">
 </p>
  
 **Figure 2**: Feature sets of phenotype model
