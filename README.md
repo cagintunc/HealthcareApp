@@ -1,6 +1,6 @@
 # HealthcareApp
 A prototype application for healthcare analysis. <br>
-A CAPSTONE project in the Master of Engineering program at the University of California, Berkeley <br>
+A CAPSTONE project in the **Master of Engineering** program at the **University of California, Berkeley** <br>
 
 ### Table of Contents
 
