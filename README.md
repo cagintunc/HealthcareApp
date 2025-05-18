@@ -14,8 +14,9 @@ A CAPSTONE project in the **Master of Engineering** program at the **University 
     4.4.  [CNN Model Scores](#cnn_scores) <br>
     4.5.  [Gene Test](#gene) <br>
     4.6.  [Phenotype Model](#pheno) <br>
-5.  [User Manual](#UserManual) <br>
-6.  [Team](#team) <br>
+5.  [High-Level Prototype in Figma](#figma) <br>
+6.  [User Manual](#UserManual) <br>
+7.  [Team](#team) <br>
 
 
 ### <a name="Landscape"></a>Landscape
@@ -41,6 +42,16 @@ Arrows, together with a star at one end in the **figure 1**, indicate that there
 <p align="center">
     <b>Figure 2:</b> Feature sets of phenotype model
 </p>
+
+In addition, the amount of data used in each class in different MRI and X-Ray models:
+
+<p align="center">
+    <img src="App/Pictures For Report/image_directory_structure.drawio.png" alt="Figure 12" width="700">
+</p>
+<p align="center">
+    <b>Figure 3:</b> The amount of data used to build the model for each disease prediction.
+</p>
+
 
 In **figure 2**, we can see the hierarchical view of the database. Based on each disease, the fields were 
 separated. The leaf nodes indicate the prefixes of the fields' identification codes. The same 
@@ -195,10 +206,27 @@ non-Hispanic Black subgroups, where risks were elevated even after adjusting
 for lifestyle factors. This highlights a potential intersection of genetic susceptibility 
 and healthcare access. <br> 
 
-### User Manual
-...Coming..
 
-### Team
+### <a name=figma></a>High-Level Prototype in Figma
+Since after starting the implementation of the program, changing the design will be challenging, 
+a Figma prototype has been developed in order to decide on the application’s user interface. 
+After carefully considering human-computer interaction heuristics, we decided to use the 
+following user interface:
+
+<p align="center">
+    <img src="App/Pictures For Report/figma_3.jpg" alt="Figure 12" width="400">
+</p>
+<p align="center">
+    <b>Figure 12:</b> The first Figma prototype of the desktop application
+models 
+</p>
+
+### <a name=UserManual></a>User Manual
+The real program is ready to use, by cloning the directory in your local and executing the **test_panels.py** file in the **App/main/** directory, you can execute it.
+
+...User Manual is Coming...
+
+### <a name='team'></a>Team
 
 **Cagin Tunc**: UC Berkeley, Master of Engineering / Bioengineering <br>
 **Haoyu Zhao**: UC Berkeley, Master of Engineering / Bioengineering <br>
