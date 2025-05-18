@@ -14,7 +14,7 @@ A prototype application for healthcare analysis <br>
     4.5.  [Gene Test](#gene) <br>
     4.6.  [Phenotype Model](#pheno) <br>
 5.  [User Manual](#UserManual) <br>
-
+6.  [Team](#team) <br>
 
 
 ### <a name="Landscape"></a>Landscape
@@ -195,4 +195,12 @@ for lifestyle factors. This highlights a potential intersection of genetic susce
 and healthcare access. <br> 
 
 ### User Manual
+...Coming..
 
+### Team
+
+**Cagin Tunc**: UC Berkeley, Master of Engineering / Bioengineering <br>
+**Haoyu Zhao**: UC Berkeley, Master of Engineering / Bioengineering <br>
+**Bikramjeet Singh**: UC Berkeley, Master of Engineering / Industrial Engineering and Operations Research <br>
+**Shuo Li**: UC Berkeley, Master of Engineering / Bioengineering <br>
+**Jiachen Xi**: UC Berkeley, Master of Engineering / Bioengineering <br>
