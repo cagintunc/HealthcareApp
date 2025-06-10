@@ -81,7 +81,7 @@ towards the classes with more training data. <br>
 biased predictions
 </p>
 
-In order to solve this problem, the following formula has been used to find the normalized 
+In order to solve this problem, a normalizer formula has been used to find the normalized 
 weights. Also, because each image is processed independently, instead of processing them in one 
 thread (the normal program flow), we can use multiple threads to process them in a parallel way. 
 By doing that, we reduced the time spent on preprocessing by **83%**. <br>
